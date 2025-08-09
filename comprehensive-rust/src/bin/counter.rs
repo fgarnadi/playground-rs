@@ -1,4 +1,5 @@
-use std::{collections::HashMap, hash::Hash};
+use std::collections::HashMap;
+use std::hash::Hash;
 
 /// Counter counts the number of times each value of type T has been seen.
 struct Counter<T> {

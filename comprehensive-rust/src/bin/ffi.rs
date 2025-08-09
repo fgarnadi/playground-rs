@@ -67,8 +67,7 @@ impl DirectoryIterator {
     fn new(path: &str) -> Result<DirectoryIterator, String> {
         // Call opendir and return a Ok value if that worked,
         // otherwise return Err with a message.
-        let path =
-            CString::new(path).map_err(|err| format!("Invalid path: {err}"))?;
+        let path = CString::new(path).map_err(|err| format!("Invalid path: {err}"))?;
         // SAFETY: path.as_ptr() cannot be NULL.
         let dir = unsafe { ffi::opendir(path.as_ptr()) };
         if dir.is_null() {
@@ -115,8 +114,9 @@ fn main() -> Result<(), String> {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
     use std::error::Error;
+
+    use super::*;
 
     #[test]
     fn test_nonexisting_directory() {
@@ -127,9 +127,8 @@ mod tests {
     #[test]
     fn test_empty_directory() -> Result<(), Box<dyn Error>> {
         let tmp = tempfile::TempDir::new()?;
-        let iter = DirectoryIterator::new(
-            tmp.path().to_str().ok_or("Non UTF-8 character in path")?,
-        )?;
+        let iter =
+            DirectoryIterator::new(tmp.path().to_str().ok_or("Non UTF-8 character in path")?)?;
         let mut entries = iter.collect::<Vec<_>>();
         entries.sort();
         assert_eq!(entries, &[".", ".."]);
@@ -142,9 +141,8 @@ mod tests {
         std::fs::write(tmp.path().join("foo.txt"), "The Foo Diaries\n")?;
         std::fs::write(tmp.path().join("bar.png"), "<PNG>\n")?;
         std::fs::write(tmp.path().join("crab.rs"), "//! Crab\n")?;
-        let iter = DirectoryIterator::new(
-            tmp.path().to_str().ok_or("Non UTF-8 character in path")?,
-        )?;
+        let iter =
+            DirectoryIterator::new(tmp.path().to_str().ok_or("Non UTF-8 character in path")?)?;
         let mut entries = iter.collect::<Vec<_>>();
         entries.sort();
         assert_eq!(entries, &[".", "..", "bar.png", "crab.rs", "foo.txt"]);

@@ -1,9 +1,10 @@
-use futures_util::sink::SinkExt;
-use futures_util::stream::StreamExt;
 use std::error::Error;
 use std::net::SocketAddr;
+
+use futures_util::sink::SinkExt;
+use futures_util::stream::StreamExt;
 use tokio::net::{TcpListener, TcpStream};
-use tokio::sync::broadcast::{channel, Sender};
+use tokio::sync::broadcast::{Sender, channel};
 use tokio_websockets::{Message, ServerBuilder, WebSocketStream};
 
 async fn handle_connection(
@@ -11,7 +12,6 @@ async fn handle_connection(
     mut ws_stream: WebSocketStream<TcpStream>,
     bcast_tx: Sender<String>,
 ) -> Result<(), Box<dyn Error + Send + Sync>> {
-
     ws_stream
         .send(Message::text("Welcome to chat! Type a message".to_string()))
         .await?;

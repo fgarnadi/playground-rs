@@ -7,7 +7,10 @@ pub struct Window {
 
 impl Window {
     pub fn new(title: &str) -> Window {
-        Window { title: title.to_owned(), widgets: Vec::new() }
+        Window {
+            title: title.to_owned(),
+            widgets: Vec::new(),
+        }
     }
 
     pub fn add_widget(&mut self, widget: Box<dyn Widget>) {

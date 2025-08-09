@@ -4,22 +4,22 @@ enum WireType {
     Varint,
     // The I64 WireType indicates that the value is precisely 8 bytes in
     // little-endian order containing a 64-bit signed integer or double type.
-    //I64,  -- not needed for this exercise
+    // I64,  -- not needed for this exercise
     /// The Len WireType indicates that the value is a length represented as a
     /// VARINT followed by exactly that number of bytes.
     Len,
     // The I32 WireType indicates that the value is precisely 4 bytes in
     // little-endian order containing a 32-bit signed integer or float type.
-    //I32,  -- not needed for this exercise
+    // I32,  -- not needed for this exercise
 }
 
 #[derive(Debug)]
 /// A field's value, typed based on the wire type.
 enum FieldValue<'a> {
     Varint(u64),
-    //I64(i64),  -- not needed for this exercise
+    // I64(i64),  -- not needed for this exercise
     Len(&'a [u8]),
-    //I32(i32),  -- not needed for this exercise
+    // I32(i32),  -- not needed for this exercise
 }
 
 #[derive(Debug)]
@@ -37,9 +37,9 @@ impl From<u64> for WireType {
     fn from(value: u64) -> Self {
         match value {
             0 => WireType::Varint,
-            //1 => WireType::I64,  -- not needed for this exercise
+            // 1 => WireType::I64,  -- not needed for this exercise
             2 => WireType::Len,
-            //5 => WireType::I32,  -- not needed for this exercise
+            // 5 => WireType::I32,  -- not needed for this exercise
             _ => panic!("Invalid wire type: {value}"),
         }
     }

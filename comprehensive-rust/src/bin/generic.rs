@@ -1,9 +1,7 @@
 use std::cmp::Ordering;
 
 fn min<T>(left: T, right: T) -> T
-where
-    T: Ord,
-{
+where T: Ord {
     match left.cmp(&right) {
         Ordering::Less | Ordering::Equal => left,
         Ordering::Greater => right,
