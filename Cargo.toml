@@ -8,6 +8,4 @@ readme = "README.md"
 [dependencies]
 
 [workspace]
-members = [
-    "comprehensive-rust",
-]
+members = ["comprehensive-rust", "web-gcd"]
